@@ -66,11 +66,15 @@ app.delete("/movies/:id", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(` Server kör på http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`Server kör på http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
 process.on("SIGINT", () => {
   console.log("Stänger server...");
   process.exit(0);
 });
-setInterval(() => {}, 1000);
+
